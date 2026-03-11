@@ -3,6 +3,7 @@ package com.ou.springcode.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.ou.springcode.dto.UserPatchRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,17 @@ public class UserService implements IUserService {
         user.setUsername(request.username());
         user.setEmail(request.email());
         user.setFullName(request.fullName() != null ? request.fullName() : user.getFullName());
+        User updated = userRepository.save(user);
+        return ResponseEntity.ok(UserReponse.fromEntity(updated));
+    }
+
+    @Override
+    public ResponseEntity<UserReponse> patchUpdate(Long id, UserPatchRequest request) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        if (request.username() != null) user.setUsername(request.username());
+        if (request.email() != null) user.setEmail(request.email());
+        if (request.fullName() != null) user.setFullName(request.fullName());
         User updated = userRepository.save(user);
         return ResponseEntity.ok(UserReponse.fromEntity(updated));
     }

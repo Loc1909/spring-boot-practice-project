@@ -2,6 +2,7 @@ package com.ou.springcode.controller;
 
 import java.util.List;
 
+import com.ou.springcode.dto.UserPatchRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -56,8 +57,8 @@ public class UserController {
 
     /** PATCH /api/users/{id} - Cập nhật một phần user (cùng body với PUT) */
     @PatchMapping("/{id}")
-    public ResponseEntity<UserReponse> patchUpdate(@PathVariable Long id, @Valid @RequestBody UserRequest request) {
-        return userService.update(id, request);
+    public ResponseEntity<UserReponse> patchUpdate(@PathVariable Long id, @Valid @RequestBody UserPatchRequest request) {
+        return userService.patchUpdate(id, request);
     }
 
     /** DELETE /api/users/{id} - Xóa user */
