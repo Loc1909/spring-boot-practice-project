@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ou.springcode.dto.UserReponse;
+import com.ou.springcode.dto.UserResponse;
 import com.ou.springcode.dto.UserRequest;
 import com.ou.springcode.model.User;
 import com.ou.springcode.repository.UserRepository;
@@ -23,49 +23,49 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<UserReponse> findAll() {
+    public List<UserResponse> findAll() {
         return userRepository.findAll().stream()
-                .map(UserReponse::fromEntity)
+                .map(UserResponse::fromEntity)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public ResponseEntity<UserReponse> findById(Long id) {
+    public ResponseEntity<UserResponse> findById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-        return ResponseEntity.ok(UserReponse.fromEntity(user));
+        return ResponseEntity.ok(UserResponse.fromEntity(user));
     }
 
     @Override
-    public ResponseEntity<UserReponse> create(UserRequest request) {
+    public ResponseEntity<UserResponse> create(UserRequest request) {
         User user = new User();
         user.setUsername(request.username());
         user.setEmail(request.email());
         user.setFullName(request.fullName());
         User saved = userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserReponse.fromEntity(saved));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.fromEntity(saved));
     }
 
     @Override
-    public ResponseEntity<UserReponse> update(Long id, UserRequest request) {
+    public ResponseEntity<UserResponse> update(Long id, UserRequest request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         user.setUsername(request.username());
         user.setEmail(request.email());
         user.setFullName(request.fullName() != null ? request.fullName() : user.getFullName());
         User updated = userRepository.save(user);
-        return ResponseEntity.ok(UserReponse.fromEntity(updated));
+        return ResponseEntity.ok(UserResponse.fromEntity(updated));
     }
 
     @Override
-    public ResponseEntity<UserReponse> patchUpdate(Long id, UserPatchRequest request) {
+    public ResponseEntity<UserResponse> patchUpdate(Long id, UserPatchRequest request) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
         if (request.username() != null) user.setUsername(request.username());
         if (request.email() != null) user.setEmail(request.email());
         if (request.fullName() != null) user.setFullName(request.fullName());
         User updated = userRepository.save(user);
-        return ResponseEntity.ok(UserReponse.fromEntity(updated));
+        return ResponseEntity.ok(UserResponse.fromEntity(updated));
     }
 
     @Override
