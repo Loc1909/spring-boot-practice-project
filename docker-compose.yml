@@ -4,15 +4,15 @@ services:
     container_name: springcode-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: "Admin@123"
       MYSQL_DATABASE: springcode
       MYSQL_USER: springcode
       MYSQL_PASSWORD: "Admin@123"
-    ports:
+    ports: 
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
-    command: --default-authentication-plugin=mysql_native_password -- character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    command: --default-authentication-pluggin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
       interval: 5s
@@ -21,3 +21,4 @@ services:
 
 volumes:
   mysql_data:
+      

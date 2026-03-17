@@ -4,15 +4,15 @@ import java.time.LocalDateTime;
 
 import com.ou.springcode.model.User;
 
-public record UserResponse(
+public record UserReponse(
     Long id,
     String username,
     String email,
     String fullName,
     LocalDateTime createdAt
 ) {
-    public static UserResponse fromEntity(User user) {
-        return new UserResponse(
+    public static UserReponse fromEntity(User user) {
+        return new UserReponse(
             user.getId(),
             user.getUsername(),
             user.getEmail(),

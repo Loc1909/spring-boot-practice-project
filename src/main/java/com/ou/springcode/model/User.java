@@ -11,8 +11,9 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "users")
+@Table(name="users")
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,7 +21,7 @@ public class User {
     @Column(nullable = false, length = 50)
     private String username;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(nullable = false, unique = true, length = 255)
     private String email;
 
     @Column(length = 100)
@@ -41,8 +42,8 @@ public class User {
     }
 
     @PrePersist
-    protected void onCreate() {
-        if (this.createdAt == null) {
+    protected void onCreate(){
+        if(this.createdAt == null) {
             this.createdAt = LocalDateTime.now();
         }
     }

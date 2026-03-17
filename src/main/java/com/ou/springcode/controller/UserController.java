@@ -2,7 +2,6 @@ package com.ou.springcode.controller;
 
 import java.util.List;
 
-import com.ou.springcode.dto.UserPatchRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ou.springcode.dto.UserResponse;
+import com.ou.springcode.dto.UserReponse;
 import com.ou.springcode.dto.UserRequest;
+import com.ou.springcode.dto.UserPatchRequest;
 import com.ou.springcode.service.UserService;
 
 import jakarta.validation.Valid;
@@ -31,32 +31,32 @@ public class UserController {
 
     /** GET /api/users - Lấy danh sách tất cả user */
     @GetMapping
-    public ResponseEntity<List<UserResponse>> getAllUsers() {
-        List<UserResponse> users = userService.findAll();
+    public ResponseEntity<List<UserReponse>> getAllUsers() {
+        List<UserReponse> users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
     /** GET /api/users/{id} - Lấy user theo id */
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getUser(@PathVariable Long id) {
+    public ResponseEntity<UserReponse> getUser(@PathVariable Long id) {
         return userService.findById(id);
     }
 
     /** POST /api/users - Tạo user mới */
     @PostMapping
-    public ResponseEntity<UserResponse> create(@Valid @RequestBody UserRequest request) {
+    public ResponseEntity<UserReponse> create(@Valid @RequestBody UserRequest request) {
         return userService.create(request);
     }
 
     /** PUT /api/users/{id} - Cập nhật toàn bộ user */
     @PutMapping("/{id}")
-    public ResponseEntity<UserResponse> update(@PathVariable Long id, @Valid @RequestBody UserRequest request) {
+    public ResponseEntity<UserReponse> update(@PathVariable Long id, @Valid @RequestBody UserRequest request) {
         return userService.update(id, request);
     }
 
-    /** PATCH /api/users/{id} - Cập nhật một phần user (cùng body với PUT) */
+    /** PATCH /api/users/{id} - Cập nhật một phần: chỉ gửi field cần đổi (username, email, fullName đều optional) */
     @PatchMapping("/{id}")
-    public ResponseEntity<UserResponse> patchUpdate(@PathVariable Long id, @Valid @RequestBody UserPatchRequest request) {
+    public ResponseEntity<UserReponse> patchUpdate(@PathVariable Long id, @Valid @RequestBody UserPatchRequest request) {
         return userService.patchUpdate(id, request);
     }
 
