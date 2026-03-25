@@ -4,10 +4,10 @@ services:
     container_name: springcode-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: "Admin@123"
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: springcode
       MYSQL_USER: springcode
-      MYSQL_PASSWORD: "Admin@123"
+      MYSQL_PASSWORD: root
     ports: 
       - "3306:3306"
     volumes:
