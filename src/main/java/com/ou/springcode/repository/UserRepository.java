@@ -33,7 +33,9 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Tìm kiếm theo search (username hoặc email chứa chuỗi input) và role)
     // Ứng với GET /api/users?search=...&role=...
     @Query("SELECT u FROM User u WHERE " + 
-        "(:search IS NULL OR LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
+        "(:search IS NULL" +
+            " OR LOWER(u.username) LIKE LOWER(CONCAT('%', :search, '%')) " +
+            "OR LOWER(u.email) LIKE LOWER(CONCAT('%', :search, '%'))) " +
         "AND (:role IS NULL OR u.role = :role)"
     )
     Page<User> findAllBySearchAndRole(@Param("search") String search, @Param("role") Role role, Pageable pageable);

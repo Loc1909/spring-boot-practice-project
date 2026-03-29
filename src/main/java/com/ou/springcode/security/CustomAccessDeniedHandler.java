@@ -33,6 +33,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     }
 
     @Override
+    /**
+     * Xử lý khi truy cập bị từ chối. Ghi log lỗi và trả về response HTTP 403 với nội dung JSON ApiError.
+     */
     public void handle(HttpServletRequest request, HttpServletResponse response,
             AccessDeniedException accessDeniedException) throws IOException, ServletException {
         log.debug("Access denied: {} - {}", request.getRequestURI(), accessDeniedException.getMessage());
@@ -51,5 +54,5 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         objectMapper.writeValue(response.getOutputStream(), body);
     }
-
+;
 }

@@ -21,6 +21,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
+    /**
+     * Tải UserDetails từ username hoặc email. Nếu không tìm thấy user, throw UsernameNotFoundException.
+     */
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         com.ou.springcode.entity.User user = userRepository.findByUsername(username)
             .orElseGet(() -> userRepository.findByEmail(username).orElse(null));

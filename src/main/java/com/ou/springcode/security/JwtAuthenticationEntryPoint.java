@@ -29,6 +29,9 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         this.objectMapper = objectMapper;
     }
     @Override
+    /**
+     * Xử lý khi xác thực thất bại. Ghi log và trả về response HTTP 401 với nội dung JSON ApiError.
+     */
     public void commence(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException authException) throws IOException, ServletException {
         log.debug("Unauthorized: {} - {}", request.getRequestURI(), authException.getMessage());

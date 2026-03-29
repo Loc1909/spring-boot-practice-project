@@ -30,6 +30,9 @@ public class SecurityConfig {
     }
 
     @Bean
+    /**
+     * Cấu hình SecurityFilterChain: vô hiệu hóa CSRF, stateless session, authorize requests theo role, xử lý exception và thêm JWT filter.
+     */
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         // http.authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
         //     .csrf(csrf -> csrf.disable())
@@ -75,11 +78,17 @@ public class SecurityConfig {
     }
 
     @Bean
+    /**
+     * Bean PasswordEncoder sử dụng BCrypt để mã hóa mật khẩu.
+     */
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
+    /**
+     * Bean AuthenticationManager từ AuthenticationConfiguration để quản lý xác thực.
+     */
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }

@@ -76,7 +76,7 @@ public class AuthService {
         // 1. Tìm user theo username hoặc Email {"usernameOrEmail": "admin", "password": "admin123"}
         User user = userRepository.findByUsername(request.usernameOrEmail())
                     .or(() ->  userRepository.findByEmail(request.usernameOrEmail()))
-                    .orElseThrow(() -> new BadCredentialsException("User/Email hoặc mật khẩu không đúng"));
+                    .orElseThrow(() -> new BadCredentialsException("Username hoặc Email hoặc mật khẩu không đúng!!! Phiên đăng nhập hết hạn!!!"));
 
         // 2. Authenticate bằng AuthenticationManager (Kiểm tra password qua Bcrypt)
         //    Nếu sai password -> ném lỗi BadCredentialsException -> GlobalExceptionHandler bắt và -> lỗi 401

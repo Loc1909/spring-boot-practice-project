@@ -38,6 +38,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
+    /**
+     * Lọc mỗi request để xác thực JWT. Trích xuất token từ header, validate và set authentication vào SecurityContext nếu hợp lệ.
+     */
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
         try {
@@ -64,6 +67,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * Trích xuất JWT từ header Authorization. Loại bỏ prefix "Bearer " nếu có.
+     */
     private String getJwtFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if(StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
