@@ -30,6 +30,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
 
+    boolean existsByUsernameAndIdNot(String username, Long id);
+
+    boolean existsByEmailAndIdNot(String email, Long id);
+
     // Tìm kiếm theo search (username hoặc email chứa chuỗi input) và role)
     // Ứng với GET /api/users?search=...&role=...
     @Query("SELECT u FROM User u WHERE " + 
